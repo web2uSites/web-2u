@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Table, Tree, Recursion</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <style type="text/css">
+    /* TABLE */
+    td{text-align: center;padding: .3rem;}
+    .th{background-color: #AAAFFF;}
+    .td.sqrt{background-color: #F3BEBE;}
+	.td:hover,
+	.red{cursor: pointer;background-color: #F00;}
+    </style>
+  </head>
+  <body>
+	<div class="container">
+	    <h1>Table</h1>
+	    <p>
+		    <button id="table_create">Create</button>
+		    X:<input id="x" type="number" max="100"> Y:<input id="y" type="number" max="100">
+		    <button  id="table_reset">Reset</button>
+	    </p>
+	     <div class="table-responsive">
+		  <table class="table" id="tbl"></table>
+		</div> 
+	    <hr>
+	 	<h1>Tree(Menu)</h1>
+	 	<div id="c_tree"></div>
+	    <hr>
+	    <h1>Recursion</h1>
+	    <p>
+	    <button id="recursion_create">Create</button>:<input id="recursion_x" type="number" max="1000" value="100"><button id="recursion_animate">Animate</button><br>
+Ре­кур­сив­ная функ­ция (вы­зы­ваю­щая са­ма се­бя), <br>вы­чис­ляю­щая фак­то­ри­ал
+На­пом­ню, что x! - это про­из­ве­де­ние x и всех <br>по­ло­жи­тель­ных це­лых чи­сел, мень­ше x.
+	    </p>
+	    <div id="c_recursion" class="container"></div>
+	    <hr>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"  defer asnc></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"  defer asnc></script>
+    <script type="text/javascript">
+
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById('table_create').addEventListener('click', createTable, false);
+		document.getElementById('table_reset').addEventListener('click', resetTable, false);
+		document.getElementById('recursion_create').addEventListener('click', recursionOutput, false);
+		document.getElementById('recursion_animate').addEventListener('click', recursionAnimate, false);
+		createTree();
+	});
+
+	var output = [];
+	function recursionOutput(){
+		output = [];
+		var x = parseInt(document.getElementById("recursion_x").value,10);		
+		document.getElementById('c_recursion').innerHTML =createRecursion(x,output)+'='+ output.join('*').toString();
+	}
+    
+	function recursionAnimate(){
+		var ul = document.createElement('ul');
+		for(var i = output.length-1;i>=0;i--){
+			var li = document.createElement('li'); 
+			li.innerHTML =output[i];
+			ul.appendChild(li);
+		}
+		document.getElementById('c_recursion').appendChild(ul);
+	}
+
+	function createRecursion(x,output){
+		output.push(x);		 		
+		if(x<=1) return 1;				
+		return x * createRecursion(x-1,output);
+    };
+
+    function createTree () {
+    	var jsondata ={
+    		"menu": "Sample of menu",
+			"commands": [
+				{"title": "View the JSON file", "href":"http://www.scriptol.com/cms/dynamic-menu.json" },
+				{"title": "Building a CMS", "href": "http://www.scriptol.com/cms/building-a-cms.php" },
+				{"title": "Wysiwyg editor", "href": "http://www.scriptol.com/cms/editor-demo.php"},
+			],
+		   "blog": "Blog",
+		   "menu 2": [
+		   		{"title": "Some title", "href":"http://www.scriptol.com" },
+		   ]
+		};
+
+		var html = '<nav class="navbar navbar-default">\
+				<div class="container-fluid">\
+				<div class="navbar-header">\
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">\
+			        <span class="sr-only">Toggle navigation</span>\
+			        <span class="icon-bar"></span>\
+			        <span class="icon-bar"></span>\
+			        <span class="icon-bar"></span>\
+			      </button>\
+			      <a class="navbar-brand" href="#">TEST MENU</a>\
+			    </div>\
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">\
+      				<ul class="nav navbar-nav">';
+					for (var key in jsondata) {
+				        var value = jsondata[key];
+				        if (value instanceof Array){
+				          html += '<li class="dropdown">\
+				           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'+key+'<span class="caret"></span></a>\
+				          			 <ul class="dropdown-menu">';
+				          for (var i = 0; i < value.length ; i++){
+				            html += '<li><a href="'+ value[i].href + '" target="_blank" title="'+value[i].title+'">'+value[i].title+'</li>';
+				            if(i%3){
+				            	html +='<li role="separator" class="divider"></li>'
+				            }
+				          }
+				          html+= "</ul></li>";
+				        }else {        
+				          html +="<li><a href='#'>"+ value.toString() + "</a></li>";
+				        }      
+				    }
+		    html +='</ul></div><!-- /.navbar-collapse -->\
+				  </div><!-- /.container-fluid -->\
+				</nav>';          
+      document.getElementById('c_tree').innerHTML = html;
+    };
+
+    function resetTable(){
+    	document.getElementById('tbl').innerHTML='';
+    };
+
+    function createTable(){
+    	resetTable();
+    	
+		var x_c = parseInt(document.getElementById("x").value,10);
+		var y_c = parseInt(document.getElementById("y").value,10);
+		
+		var tbl = document.getElementById('tbl');
+
+		for(var y=0; y<=y_c; y++){
+			var tr = document.createElement("tr");
+			for(var x=0,s=x_c; x<=x_c; x++,s--){
+				var td = document.createElement("td");	
+
+				td.className = 'td';
+				td.innerHTML=(x*y).toString();
+
+				if(x==y) td.className += ' sqrt';
+				if(y==0 || x==0) {
+					td.className = 'th';
+					td.innerHTML = y==0? x.toString(): y.toString();
+				}
+				if(y==0 && x==0) td.innerHTML = '#';
+
+				var tdOver = function(){
+					var x1=x;
+					var y1=y;
+					return function (){								
+				    	tbl.children[0].children[x1].className = tbl.children[0].children[x1].className=='th'?'th red':'th';
+				    	tbl.children[y1].children[0].className = tbl.children[y1].children[0].className=='th'?'th red':'th';
+				    };
+				}.call(x,y);
+
+				var tdClick = function(){
+					var x1=x;
+					var y1=y;
+					return function (){								
+				    	alert(x1+' * '+y1+' = '+x1*y1);
+				    };
+				}.call(x,y);
+
+				td.addEventListener('mouseover', tdOver, false);
+				td.addEventListener('mouseout', tdOver, false);
+				td.addEventListener('click', tdClick, false);
+
+				tr.appendChild(td);
+			}
+
+			tbl.appendChild(tr);
+		}	
+		// fast insert into the DOM
+		// var fragment = document.createDocumentFragment();		
+		// document.getElementById('tbl').appendChild(fragment.cloneNode(true));
+		
+    };
+
+
+
+    </script>
+  </body>
+</html>
