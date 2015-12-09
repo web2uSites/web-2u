@@ -1,0 +1,5 @@
+# gitignore script example:
+# https://github.com/github/gitignore
+
+gpupload.sh
+*.sh
