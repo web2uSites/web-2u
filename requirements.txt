@@ -1,0 +1,68 @@
+
+#	requirements:
+
+#	node.js -v 0.10.29
+#nodejs_kali_install.sh or https://github.com/nodesource/distributions
+#	npm -v 3.5.1
+#[sudo] npm install npm@latest -g
+# Add Gulp Globaly
+#npm install gulp -g
+
+# Add Gulp to a Project
+#http://gulpjs.com/plugins/ 
+npm install gulp --save-dev
+# Concatenating Files with Gulp
+npm install gulp-concat --save-dev
+# Minify the JavaScript with Gulp
+npm install gulp-uglify gulp-rename --save-dev
+# Image Optimisation with Gulp
+npm install gulp-cache gulp-imagemin --save-dev
+# gulp plugin to minify HTML.
+npm i gulp-htmlmin --save-dev
+# A javascript, stylesheet and webcomponent injection plugin for Gulp, 
+# i.e. inject file references into your index.html
+# https://www.npmjs.com/package/gulp-inject/
+npm install gulp-inject --save-dev 
+# https://github.com/murphydanger/gulp-minify-css
+npm install --save-dev gulp-minify-css
+#before deploying, it’s a good idea to clean out the destination folders 
+npm install del --save-dev
+
+gulp flatten
+
+
+# ===============================================================
+
+Gzip plugin for gulp: https://www.npmjs.com/package/gulp-gzip/
+
+remove/replace relative path for files: https://www.npmjs.com/package/gulp-flatten/
+
+
+gulp-sitemap
+
+gulp-mustache
+
+gulp-convert
+Gulp plugin to convert to or from JSON, YAML, XML, PLIST or CSV.
+
+gulp-sprite-generator
+Plugin that generate sprites from your stylesheets (using spritesmith) and then updates the references.
+
+gulp-check-unused-css
+Checks your CSS for unused classes in HTML templates
+
+robots-generator
+Robots.txt generator for Node.js
+
+gulp-w3c-css
+A Gulp plugin for CSS Validation
+
+gulp-tree-concat
+Gulp processor to merge multiple javascript files into one with hierarchy
+
+
+gulp-angular-template
+Compile AngularJS one time binding expressions.
+
+gulp-htmlrender
+Render html files from relative partials
